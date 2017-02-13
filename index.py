@@ -13,7 +13,7 @@ def new_message():
             return '.'
         chat_id = update.message.chat.id
         bot.set_chat_id(chat_id)
-        
+
         text = update.message.text
         bot.check_rules(text)
         return '.'

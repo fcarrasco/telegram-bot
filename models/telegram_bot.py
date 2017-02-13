@@ -24,7 +24,7 @@ class TelegramBot(object):
         return telegram.Update.de_json(json, self.bot)
 
     def setWebhook(self):
-        self.bot.setWebhook(settings['hook-url'])
+        return self.bot.setWebhook(settings['hook-url'])
 
     def check_rules(self, text):
         for rule in rules:
