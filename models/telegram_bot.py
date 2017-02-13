@@ -14,11 +14,14 @@ class TelegramBot(object):
     def set_chat_id(self, chat_id):
         self.chat_id = chat_id
 
-    def send_message(self, text, update):
+    def send_message(self, text, update=None):
+        message_id = None
+        if update:
+            message_id = update.message.message_id
         self.bot.sendMessage(
             chat_id=self.chat_id,
             text=text,
-            reply_to_message_id=update.message.message_id,
+            reply_to_message_id=message_id,
         )
 
     def send_sticker(self, text, update):

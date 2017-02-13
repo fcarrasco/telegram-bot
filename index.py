@@ -13,7 +13,8 @@ def new_message():
         if not update.message:
             return '.'
         chat_id = update.message.chat.id
-        if chat_id not in settings['allowed_chats']:
+        if settings['allowed_chats'] is not None \
+           and chat_id not in settings['allowed_chats']:
             print(chat_id)
             return 'chat id not allowed'
         bot.set_chat_id(chat_id)
