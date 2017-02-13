@@ -17,4 +17,5 @@ requires:
 to run flask
 
 `export FLASK_APP=index.py
+
 flask run`
