@@ -11,10 +11,8 @@ def new_message():
         update = bot.parse(request.get_json(force=True))
         chat_id = update.message.chat.id
         bot.set_chat_id(chat_id)
-        send_message = chat_id == 126841437
-        if send_message:
-            text = update.message.text
-            bot.check_rules(text)
+        text = update.message.text
+        bot.check_rules(text)
         return '.'
 
 
