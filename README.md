@@ -7,7 +7,7 @@ create your bot in @botfather
 you need to run your flask on some https server
 
 on settings, put yout token
-and put yout hook url (https://url/new-message)
+and put your hook url (https://your-url/new-message)
 
 
 to run flask
