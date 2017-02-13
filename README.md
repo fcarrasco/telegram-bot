@@ -15,5 +15,5 @@ requires:
 - python-telegram-bot
 
 to run flask
-export FLASK_APP=index.py
-flask run
+`export FLASK_APP=index.py`
+`flask run`
