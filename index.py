@@ -1,6 +1,7 @@
 import logging
 from models.telegram_bot import TelegramBot
-from flask import Flask, request
+from flask import Flask, request, render_template
+from settings import settings
 app = Flask(__name__)
 
 
@@ -12,10 +13,15 @@ def new_message():
         if not update.message:
             return '.'
         chat_id = update.message.chat.id
+        if chat_id not in settings['allowed_chats']:
+            print(chat_id)
+            return 'chat id not allowed'
         bot.set_chat_id(chat_id)
-
-        text = update.message.text
-        bot.check_rules(text)
+        debugger = chat_id == settings['debug_chat_id']
+        if debugger:
+            if update.message.sticker:
+                print(update.message.sticker.file_id)
+        bot.check_rules(update)
         return '.'
 
 
@@ -27,6 +33,18 @@ def set_webhook():
         return "webhook setup ok"
     else:
         return "webhook setup failed"
+
+
+@app.route('/send_message/', methods=['GET', 'POST'])
+def send_message():
+    if request.method == "POST":
+        message = request.form['message']
+        chat_id = request.form['chat_id']
+        bot = TelegramBot()
+        # 1001050125853
+        bot.set_chat_id(chat_id)
+        bot.send_message(message)
+    return render_template('message.jinja2')
 
 
 if __name__ == "__main__":

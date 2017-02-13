@@ -7,6 +7,6 @@ rules = [
     {
         'rules': ['sticker'],
         'action_type': 'sticker',
-        'actions': ['CAADAQADHQEAAlyeSAjdrmMGre3bzgI']
+        'actions': ['CAADAQADCwADR4jEBXhIwd95RlnsAg']
     },
 ]
