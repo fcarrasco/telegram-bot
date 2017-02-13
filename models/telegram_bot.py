@@ -1,4 +1,5 @@
 import re
+import random
 import telegram
 from rules import rules
 from settings import settings
@@ -22,10 +23,15 @@ class TelegramBot(object):
     def parse(self, json):
         return telegram.Update.de_json(json, self.bot)
 
+    def setWebhook(self):
+        self.bot.setWebhook(settings['hook-url'])
+
     def check_rules(self, text):
         for rule in rules:
-            if re.search(rule, text, re.IGNORECASE):
-                (action_type, message) = rules[rule]
-                action = self.__getattribute__('send_%s' % action_type)
-                action(message)
-                return True
+            for regex in rule['rules']:
+                if re.search(regex, text, re.IGNORECASE):
+                    message = random.choice(rule['actions'])
+                    action_type = rule['action_type']
+                    action = self.__getattribute__('send_%s' % action_type)
+                    action(message)
+                    return True

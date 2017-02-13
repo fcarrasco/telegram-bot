@@ -9,11 +9,24 @@ def new_message():
     if request.method == "POST":
         bot = TelegramBot()
         update = bot.parse(request.get_json(force=True))
+        if not update.message:
+            return '.'
         chat_id = update.message.chat.id
         bot.set_chat_id(chat_id)
+        
         text = update.message.text
         bot.check_rules(text)
         return '.'
+
+
+@app.route('/set_webhook', methods=['GET', 'POST'])
+def set_webhook():
+    bot = TelegramBot()
+    s = bot.setWebhook()
+    if s:
+        return "webhook setup ok"
+    else:
+        return "webhook setup failed"
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
 settings = {
-    'token': 'YOUR-TOKEN'
+    'token': 'YOUR-TOKEN',
+    'hook-url': 'https://URL/HOOK',
 }
