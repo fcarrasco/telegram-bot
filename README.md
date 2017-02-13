@@ -10,6 +10,10 @@ on settings, put yout token
 and put your hook url (https://your-url/new-message)
 
 
+requires:
+- flask
+- python-telegram-bot
+
 to run flask
 export FLASK_APP=index.py
 flask run
