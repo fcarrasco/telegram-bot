@@ -1,6 +1,7 @@
 import re
 import random
 import telegram
+import giphypop
 from rules import rules
 from settings import settings
 
@@ -24,6 +25,20 @@ class TelegramBot(object):
             reply_to_message_id=message_id,
         )
 
+    def send_gif(self, giphy_search, update=None):
+        message_id = None
+        if update:
+            message_id = update.message.message_id
+        g = giphypop.Giphy()
+        gifs = [x for x in g.search(giphy_search)]
+        giphy = random.choice(gifs)
+        gif = giphy.fixed_height.url
+        self.bot.sendSticker(
+            chat_id=self.chat_id,
+            sticker=gif,
+            reply_to_message_id=message_id,
+        )
+
     def send_sticker(self, text, update):
         self.bot.sendSticker(
             chat_id=self.chat_id,
@@ -41,9 +56,13 @@ class TelegramBot(object):
         text = update.message.text
         for rule in rules:
             for regex in rule['rules']:
-                if re.search(regex, text, re.IGNORECASE):
-                    message = random.choice(rule['actions'])
+                m = re.search(regex, text, re.IGNORECASE)
+                if m:
                     action_type = rule['action_type']
+                    if action_type == 'gif':
+                        message = m.groups(0)[0]
+                    else:
+                        message = random.choice(rule['actions'])
                     action = self.__getattribute__('send_%s' % action_type)
                     action(message, update)
                     return True

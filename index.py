@@ -1,5 +1,5 @@
 import logging
-from models.telegram_bot import TelegramBot
+from services.telegram_bot import TelegramBot
 from flask import Flask, request, render_template
 from settings import settings
 app = Flask(__name__)
@@ -22,6 +22,8 @@ def new_message():
         if debugger:
             if update.message.sticker:
                 print(update.message.sticker.file_id)
+            elif update.message:
+                print(update.message)
         bot.check_rules(update)
         return '.'
 

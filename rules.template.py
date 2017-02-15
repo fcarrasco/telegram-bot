@@ -9,4 +9,9 @@ rules = [
         'action_type': 'sticker',
         'actions': ['CAADAQADCwADR4jEBXhIwd95RlnsAg']
     },
+    {
+        'rules': ['/gif\s*(.*)'],
+        'action_type': 'gif',
+        'actions': []
+    },
 ]
