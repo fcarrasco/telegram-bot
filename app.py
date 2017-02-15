@@ -54,4 +54,4 @@ if __name__ == "__main__":
     handler = logging.StreamHandler()
     handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
